@@ -67,7 +67,7 @@ const LoginPage = () => {
         }
       } else {
         const { email, password } = formData;
-        response = await post("http://localhost:5000/api/auth/login", {
+        response = await post("https://auction-x.onrender.com/api/auth/login", {
           email,
           password,
         });
@@ -115,7 +115,7 @@ const LoginPage = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/auth/google"; // Redirect to Google OAuth
+    window.location.href = "https://auction-x.onrender.com/auth/google"; // Redirect to Google OAuth
   };
 
   useEffect(() => {
