@@ -12,7 +12,7 @@ const DownloadInvoice = ({ id }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/orders/${id}`
+          `https://auction-x.onrender.com/api/orders/${id}`
         );
         setOrderData(response.data);
       } catch (error) {

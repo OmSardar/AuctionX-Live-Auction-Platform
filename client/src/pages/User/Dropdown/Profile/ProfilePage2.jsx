@@ -41,7 +41,7 @@ function ProfilePage2() {
     // Fetch user data based on email
     if (email) {
       axios
-        .get(`http://localhost:5000/api/auth/user/${email}`)
+        .get(`https://auction-x.onrender.com/api/auth/user/${email}`)
         .then((response) => {
           setProfileInfo(response.data); // Set profile information with response data
         })
@@ -82,7 +82,7 @@ function ProfilePage2() {
     // Send a PATCH request to update the user data
     axios
       .patch(
-        `http://localhost:5000/api/auth/updateUserProfile/${profileInfo.email}`,
+        `https://auction-x.onrender.com/api/auth/updateUserProfile/${profileInfo.email}`,
         updatedProfileData
       )
       .then((response) => {

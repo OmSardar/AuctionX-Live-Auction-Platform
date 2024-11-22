@@ -57,7 +57,7 @@ const CarDetailsPage = () => {
   const [biddingEndTime, setBiddingEndTime] = useState(null);
 
   useEffect(() => {
-    const socketInstance = io("http://localhost:5000");
+    const socketInstance = io("https://auction-x.onrender.com");
 
     setSocket(socketInstance);
 
@@ -121,7 +121,7 @@ const CarDetailsPage = () => {
   const fetchProductData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/products/${productId}`
+        `https://auction-x.onrender.com/api/products/${productId}`
       );
 
       const {
@@ -181,7 +181,7 @@ const CarDetailsPage = () => {
     try {
       // Fetch product data after bidding ends
       const productResponse = await axios.get(
-        `http://localhost:5000/api/products/${id}`
+        `https://auction-x.onrender.com/api/products/${id}`
       );
       const productData = productResponse.data;
 
@@ -198,7 +198,7 @@ const CarDetailsPage = () => {
       if (userEmail) {
         // Fetch user data for the highest bidder
         const userResponse = await axios.get(
-          `http://localhost:5000/api/auth/user/${userEmail}`
+          `https://auction-x.onrender.com/api/auth/user/${userEmail}`
         );
         const { address, phoneNo } = userResponse.data;
 
@@ -246,11 +246,11 @@ const CarDetailsPage = () => {
         showWinningAlert(userResponse.data.name);
 
         // Post auction summary data
-        await axios.post("http://localhost:5000/api/orders/", auctionSummary);
+        await axios.post("https://auction-x.onrender.com/api/orders/", auctionSummary);
 
         // Delete the product after the auction ends
         await axios.delete(
-          `http://localhost:5000/api/products/deleteSuccessProduct/${id}`
+          `https://auction-x.onrender.com/api/products/deleteSuccessProduct/${id}`
         );
         setProductDeleted(true);
         // Show error message if product is deleted
@@ -261,7 +261,7 @@ const CarDetailsPage = () => {
       } else {
         // No highest bidder, update the product status to closed
         await axios.patch(
-          `http://localhost:5000/api/products/statuspatch/${id}`,
+          `https://auction-x.onrender.com/api/products/statuspatch/${id}`,
           {
             status: "Closed",
           }
@@ -278,7 +278,7 @@ const CarDetailsPage = () => {
     const fetchCarData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/products/${id}`
+          `https://auction-x.onrender.com/api/products/${id}`
         );
         setCarData(response.data);
         setCurrentBid(response.data.biddingStartPrice);
@@ -299,7 +299,7 @@ const CarDetailsPage = () => {
     const fetchAmount = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/auth/get-amount?email=${email}`
+          `https://auction-x.onrender.com/api/auth/get-amount?email=${email}`
         );
         if (response.data && response.data.amount !== undefined) {
           setUserMoney(response.data.amount);
@@ -317,7 +317,7 @@ const CarDetailsPage = () => {
   const fetchProfilePic = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/auth/profile-pic",
+        "https://auction-x.onrender.com/api/auth/profile-pic",
         {
           params: { email: carData.email },
         }
@@ -365,7 +365,7 @@ const CarDetailsPage = () => {
       }
       // Step 1: Fetch product data
       const productResponse = await axios.get(
-        `http://localhost:5000/api/products/${id}`
+        `https://auction-x.onrender.com/api/products/${id}`
       );
       const productData = productResponse.data;
       // Step 2: Get the previous bidder's email (assuming it's stored in `currentBidderEmail`)
@@ -376,14 +376,14 @@ const CarDetailsPage = () => {
           toast.success(`${name_notification} just placed a bid !`);
           // Step 3: Use the previous bidder's email to fetch the current amount
           const amountResponse = await axios.get(
-            `http://localhost:5000/api/auth/get-amount?email=${previousBidderEmail}`
+            `https://auction-x.onrender.com/api/auth/get-amount?email=${previousBidderEmail}`
           );
           const fetchedAmount = amountResponse.data.amount || 0;
 
           // Step 4: Calculate the new amount after refunding the previous bidder
           const newAmount = (productData.tempamount || 0) + fetchedAmount;
           // Step 5: Update the previous bidder's amount (refund them)
-          await axios.patch(`http://localhost:5000/api/auth/update-amount`, {
+          await axios.patch(`https://auction-x.onrender.com/api/auth/update-amount`, {
             email: previousBidderEmail,
             amount: newAmount,
           });
@@ -395,7 +395,7 @@ const CarDetailsPage = () => {
       }
       // Step 6: Patch the updated user balance (userMoney - enteredAmount)
       const updatedUserBalance = userMoney - enteredAmount;
-      await fetch(`http://localhost:5000/api/auth/update-amount`, {
+      await fetch(`https://auction-x.onrender.com/api/auth/update-amount`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -407,7 +407,7 @@ const CarDetailsPage = () => {
 
       const localbiddername = localStorage.getItem("name"); // Retrieve email from local storage
 
-      await fetch(`http://localhost:5000/api/products/tempdata/${id}`, {
+      await fetch(`https://auction-x.onrender.com/api/products/tempdata/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

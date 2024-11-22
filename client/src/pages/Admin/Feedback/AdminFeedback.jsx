@@ -24,7 +24,7 @@ function AdminFeedback() {
     const fetchEntries = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/admins/feedback"
+          "https://auction-x.onrender.com/api/admins/feedback"
         ); // Adjust the URL as needed
         setEntries(response.data);
       } catch (error) {

@@ -26,7 +26,7 @@ const OtpInput = () => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:5000/api/auth/get-otp/${email}`);
+        const response = await axios.get(`https://auction-x.onrender.com/api/auth/get-otp/${email}`);
         if (response.data && response.data.otp) {
           setOriginalOtp(response.data.otp.toString());  // Ensure OTP is a string
         } else {
@@ -102,7 +102,7 @@ const handleResendOtp = async () => {
 
   try {
     // Make an API call to resend OTP
-    const response = await axios.post(`http://localhost:5000/api/auth/resend-otp`, { email });
+    const response = await axios.post(`https://auction-x.onrender.com/api/auth/resend-otp`, { email });
     if (response.data && response.data.otp) {
       setOriginalOtp(response.data.otp.toString());  // Update original OTP with new one
     } else {

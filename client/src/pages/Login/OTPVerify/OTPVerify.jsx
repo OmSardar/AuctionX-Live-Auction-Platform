@@ -22,7 +22,7 @@ const OTPverify = () => {
         return;
       }
       try {
-        const response = await axios.get(`http://localhost:5000/api/auth/get-otp/${email}`); // Use the email as a parameter
+        const response = await axios.get(`https://auction-x.onrender.com/api/auth/get-otp/${email}`); // Use the email as a parameter
         setOriginalOtp(response.data.otp);
       } catch (error) {
         console.error("Error fetching OTP:", error);
@@ -75,7 +75,7 @@ const OTPverify = () => {
   
       try {
         // Patch request to update the isVerified field
-        const response = await axios.patch('http://localhost:5000/api/auth/verify-user', {
+        const response = await axios.patch('https://auction-x.onrender.com/api/auth/verify-user', {
           email: email,
         });
   
@@ -102,7 +102,7 @@ const OTPverify = () => {
   
     try {
       // Make an API call to resend OTP
-      const response = await axios.post(`http://localhost:5000/api/auth/resend-otp`, { email });
+      const response = await axios.post(`https://auction-x.onrender.com/api/auth/resend-otp`, { email });
       setOriginalOtp(response.data.otp);  // Update the original OTP with the new one from response
     } catch (error) {
       console.error("Error resending OTP:", error);

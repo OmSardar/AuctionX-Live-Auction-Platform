@@ -12,7 +12,7 @@ const OrdersPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/orders");
+        const response = await axios.get("https://auction-x.onrender.com/api/orders");
         const userEmail = localStorage.getItem("email"); // Retrieve userEmail from local storage
 
         // Filter orders based on userEmail

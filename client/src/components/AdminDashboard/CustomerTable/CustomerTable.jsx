@@ -13,7 +13,7 @@ export const CustomerTable = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/admins/customers"
+        "https://auction-x.onrender.com/api/admins/customers"
       ); // Adjust the endpoint as necessary
       setDataSource(response.data.users); // Adjust according to your API response
     } catch (error) {
@@ -26,7 +26,7 @@ export const CustomerTable = () => {
   // Function to delete a customer
   const deleteCustomer = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/admins/customers/${id}`); // Adjust the endpoint as necessary
+      await axios.delete(`https://auction-x.onrender.com/api/admins/customers/${id}`); // Adjust the endpoint as necessary
       setDataSource(dataSource.filter((user) => user._id !== id)); // Update the local state
       toast.success("User deleted successfully.");
     } catch (error) {

@@ -18,14 +18,14 @@ const ForgetPassword = () => {
     try {
       // Step 1: Check if the user exists
       const response = await axios.post(
-        "http://localhost:5000/api/auth/check-user",
+        "https://auction-x.onrender.com/api/auth/check-user",
         { email }
       );
 
       if (response.status === 200 && response.data.user) {
         // Step 2: If user exists, send OTP
         toast.success("User found, sending OTP...");
-        await axios.post("http://localhost:5000/api/auth/send-otp", { email });
+        await axios.post("https://auction-x.onrender.com/api/auth/send-otp", { email });
 
         // Step 3: Redirect to OTP page with email as state
         navigate("/OTP", { state: { email } });

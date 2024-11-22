@@ -35,7 +35,7 @@ const VerifyProfilePage = () => {
 
     try {
       const response = await axios.patch(
-        "http://localhost:5000/api/auth/updateGProfile",
+        "https://auction-x.onrender.com/api/auth/updateGProfile",
         formData,
         {
           headers: {
@@ -45,7 +45,7 @@ const VerifyProfilePage = () => {
         }
       );
       // Patch request to update the isvarified field
-      await axios.patch("http://localhost:5000/api/auth/verify-user", {
+      await axios.patch("https://auction-x.onrender.com/api/auth/verify-user", {
         email: email,
       });
       setSuccess("Profile updated successfully!");

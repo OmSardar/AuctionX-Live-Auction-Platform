@@ -24,7 +24,7 @@ const SideMenu = () => {
 
   const handleLogout = async () => {
     try {
-      const request = await post("http://localhost:5000/api/auth/logout");
+      const request = await post("https://auction-x.onrender.com/api/auth/logout");
       const response = request.data;
       if (request.status === 200) {
         localStorage.clear(); // Clear local storage on logout

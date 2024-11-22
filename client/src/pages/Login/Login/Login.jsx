@@ -47,7 +47,7 @@ const LoginPage = () => {
       // Check if user is signing up or signing in
       if (isSignUp) {
         const { name, email, password } = formData;
-        response = await post("http://localhost:5000/api/auth/register", {
+        response = await post("https://auction-x.onrender.com/api/auth/register", {
           name,
           email,
           password,

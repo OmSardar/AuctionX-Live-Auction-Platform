@@ -10,7 +10,7 @@ export const InventoryTable = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/products/");
+      const response = await axios.get("https://auction-x.onrender.com/api/products/");
 
       // Directly setting the fetched data if it's an array
       if (Array.isArray(response.data)) {
@@ -35,7 +35,7 @@ export const InventoryTable = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/products/${id}`);
+      await axios.delete(`https://auction-x.onrender.com/api/products/${id}`);
       setDataSource((prevDataSource) =>
         prevDataSource.filter((item) => item._id !== id)
       );
