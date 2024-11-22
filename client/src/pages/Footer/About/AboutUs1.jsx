@@ -32,13 +32,14 @@ const Team = () => {
                   <a
                     href="https://www.linkedin.com/in/kunal-sarkar-592a1230a/"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <i className="fa-brands fa-linkedin"></i>
                   </a>
-                  <a href="https://github.com/kunalsarkar-bit" target="_blank">
+                  <a href="https://github.com/kunalsarkar-bit" target="_blank" rel="noopener noreferrer">
                     <i className="fa-brands fa-github"></i>
                   </a>
-                  <a href="mailto:kunalsarkar6290@gmail.com" target="_blank">
+                  <a href="mailto:kunalsarkar6290@gmail.com" target="_blank" rel="noopener noreferrer">
                     <i className="fa-solid fa-envelope"></i>
                   </a>
                 </div>
@@ -66,13 +67,14 @@ const Team = () => {
                   <a
                     href="https://www.linkedin.com/in/om-sardar"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <i className="fa-brands fa-linkedin"></i>
                   </a>
-                  <a href="https://github.com/omsardar1" target="_blank">
+                  <a href="https://github.com/omsardar1" target="_blank" rel="noopener noreferrer">
                     <i className="fa-brands fa-github"></i>
                   </a>
-                  <a href="mailto:omsardar14@gmail.com" target="_blank">
+                  <a href="mailto:omsardar14@gmail.com" target="_blank" rel="noopener noreferrer">
                     <i className="fa-solid fa-envelope"></i>
                   </a>
                 </div>
@@ -97,13 +99,13 @@ const Team = () => {
                   principles.
                 </div>
                 <div className="TEAM-icons">
-                  <a href="#" target="_blank">
+                  <a href="https://www.linkedin.com/in/sourav-khanra-87912433a" target="_blank" rel="noopener noreferrer">
                     <i className="fa-brands fa-linkedin"></i>
                   </a>
-                  <a href="#" target="_blank">
+                  <a href="https://github.com/Sorav-khanra" target="_blank" rel="noopener noreferrer">
                     <i className="fa-brands fa-github"></i>
                   </a>
-                  <a href="mailto:prolaccy60@gmail.com" target="_blank">
+                  <a href="mailto:prolaccy60@gmail.com" target="_blank" rel="noopener noreferrer">
                     <i className="fa-solid fa-envelope"></i>
                   </a>
                 </div>
@@ -132,13 +134,14 @@ const Team = () => {
                   <a
                     href="https://www.linkedin.com/in/subha-samanta-93883423b/"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <i className="fa-brands fa-linkedin"></i>
                   </a>
-                  <a href="#" target="_blank">
+                  <a href="https://github.com/Subho256" target="_blank" rel="noopener noreferrer">
                     <i className="fa-brands fa-github"></i>
                   </a>
-                  <a href="mailto:subhasamantal968@gmail.com" target="_blank">
+                  <a href="mailto:subhasamantal968@gmail.com" target="_blank" rel="noopener noreferrer">
                     <i className="fa-solid fa-envelope"></i>
                   </a>
                 </div>
