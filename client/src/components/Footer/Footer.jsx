@@ -115,7 +115,7 @@ const Footer = () => {
                 activeSection === "help" || !isMobileView ? "show" : ""
               }`}
             >
-              <ul className="footer-nav-list">
+              <ul className="footer-nav-list footer-help">
                 <li className="footer-nav-item">
                   <Link to="/payment" className="footer-nav-link">
                     Payment
