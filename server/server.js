@@ -23,7 +23,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000", // your frontend URL
+    origin: "https://auction-x-minor-project-2024.onrender.com", // your frontend URL
     methods: ["GET", "POST", "DELETE", "PATCH", "PUT"],
     allowedHeaders: ["Content-Type"], // Allow any required headers
     credentials: true, // Allow credentials if needed (cookies or headers)
@@ -44,7 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: "https://auction-x-minor-project-2024.onrender.com",
   })
 );
 
@@ -133,7 +133,7 @@ app.get(
     const profilePic = JSON.stringify(user.profilePic);
 
     res.redirect(
-      `http://localhost:3000/login?token=${token}&name=${user.name}&email=${
+      `https://auction-x-minor-project-2024.onrender.com/login?token=${token}&name=${user.name}&email=${
         user.email
       }&profilePic=${profilePic}&role=${
         user.role
