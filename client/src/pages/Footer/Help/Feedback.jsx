@@ -68,7 +68,7 @@ function FeedbackForm() {
         };
 
         const response = await axios.post(
-          "http://localhost:5000/api/products/submit",
+          "https://auction-x.onrender.com/api/products/submit",
           entry
         );
         toast.success("Feedback sent successfully");
