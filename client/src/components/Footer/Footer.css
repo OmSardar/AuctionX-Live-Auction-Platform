@@ -210,6 +210,31 @@
   .slogan {
     font-size: 1rem;
   }
+
+    .footer-columns {
+    flex-direction: column;
+  }
+
+  .footer-column {
+    margin-bottom: 20px;
+  }
+
+  .footer-title {
+    font-size: 1.1rem;
+    padding: 10px;
+    background-color: #000;
+    border-radius: 5px;
+  }
+
+  .footer-nav.show {
+    display: block;
+    padding-left: 10px;
+  }
+
+  .footer-nav-item {
+    padding-left: 20px;
+  }
+
 }
 
 @media screen and (max-width: 480px) {
