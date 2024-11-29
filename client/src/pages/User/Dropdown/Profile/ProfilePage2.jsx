@@ -166,7 +166,7 @@ function ProfilePage2() {
                 <li className="list-group-item">
                     <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon icon={faXTwitter} style={{ fontSize: '1.5rem', marginRight: '8px' }} />
-                      Facebook
+                      X
                     </a>
                 </li>
                 <li className="list-group-item">
