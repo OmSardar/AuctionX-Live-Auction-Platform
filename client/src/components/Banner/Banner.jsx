@@ -18,13 +18,13 @@ const WideCard = () => {
 
   // Static list of images with placeholders for id and author (or any other required details)
   const products = [
-    { id: 1, url: image1, author: "Author 1", category: "Properties" },
+    { id: 1, url: image1, author: "Author 1", category: "Currencies" },
     { id: 2, url: image2, author: "Author 2", category: "Antiques" },
-    { id: 3, url: image3, author: "Author 3", category: "Furnitures" },
-    { id: 4, url: image4, author: "Author 4", category: "Technology" },
-    { id: 5, url: image5, author: "Author 5", category: "Foodbeverage" },
-    { id: 6, url: image6, author: "Author 6", category: "Books" },
-    { id: 7, url: image7, author: "Author 7", category: "Antiques" },
+    { id: 3, url: image3, author: "Author 3", category: "Automobiles"  },
+    { id: 4, url: image4, author: "Author 4", category: "Automobiles" },
+    { id: 5, url: image5, author: "Author 5", category: "Books" },
+    { id: 6, url: image6, author: "Author 6", category: "Furnitures" },
+    { id: 7, url: image7, author: "Author 7", category: "Properties" },
     // Add more images as needed
   ];
 
