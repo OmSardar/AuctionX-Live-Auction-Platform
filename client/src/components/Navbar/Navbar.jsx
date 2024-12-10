@@ -223,11 +223,6 @@ const Header = () => {
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => navigate("/category/Currencies")}>
-                    Currency
-                  </button>
-                </li>
-                <li>
                   <button onClick={() => navigate("/category/Books")}>
                     Books & Painting
                   </button>
@@ -235,6 +230,11 @@ const Header = () => {
                 <li>
                   <button onClick={() => navigate("/category/Antiques")}>
                     Antiques
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigate("/category/Currencies")}>
+                    Others
                   </button>
                 </li>
               </ul>

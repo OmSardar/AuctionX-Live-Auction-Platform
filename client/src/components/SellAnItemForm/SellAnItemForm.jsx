@@ -257,9 +257,9 @@ const SellAnItem = () => {
                 <option value="Automobiles">Automobiles & Electronics</option>
                 <option value="Furnitures">Furnitures</option>
                 <option value="Beverages">Foods & Beverages</option>
-                <option value="Currencies">Currencies</option>
                 <option value="Books">Books and Paintings</option>
                 <option value="Antiques">Antiques</option>
+                <option value="Currencies">Others</option>
               </select>
             </div>
 
