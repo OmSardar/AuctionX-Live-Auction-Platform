@@ -7,6 +7,8 @@ import { InputGroup, Row, Col, Button, Alert } from "react-bootstrap";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { toast } from "react-hot-toast";
+import './Feedback.css';
+
 
 function FeedbackForm() {
   const [displayForm, setDisplayForm] = useState(true);

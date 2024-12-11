@@ -454,7 +454,7 @@ const CarDetailsPage = () => {
   };
 
   return (
-    <div style={{ marginTop: "160px", marginBottom: "140px" }}>
+    <div style={{ marginTop: "160px", marginBottom: "140px" }} className="ProductDetails">
       <Container className="mt-5">
         <Row>
           <Col md={8}>
