@@ -7,15 +7,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white; /* Retained the original color */
+  background-color: black; /* Ensures full coverage */
   overflow: hidden;
   z-index: 1000;
-  perspective: 1000px; /* Adds depth effect to reduce zoom anomalies */
 }
 
 /* Initial Loading Style */
 .ENTRY-loader.loading {
-  color: black;
+  color: white; /* Text color to contrast black background */
   font-size: 3.5rem;
   font-weight: bold;
   animation: ENTRY-pulse 1.5s infinite ease-in-out;
@@ -30,7 +29,7 @@
 .ENTRY-piece {
   font-size: 3.5rem;
   font-weight: bold;
-  color: black;
+  color: white;
   animation: ENTRY-breakApart 0.5s forwards;
 }
 
@@ -56,16 +55,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transform-origin: center; /* Ensures zoom happens from the center */
+  transform-origin: center center; /* Ensures scaling from the center */
   font-size: 3.5rem;
   font-weight: bold;
-  color: black;
+  color: white;
   animation: ENTRY-zoomIn 1.5s forwards;
 }
 
 @keyframes ENTRY-zoomIn {
-  from { transform: scale(1); }
-  to { transform: scale(500); }
+  from {
+    transform: translate(-50%, -50%) scale(1); /* Explicit centering */
+  }
+  to {
+    transform: translate(-50%, -50%) scale(500); /* Uniform scaling */
+  }
 }
 
 /* Hide loader after zoom animation */
@@ -83,31 +86,39 @@
 /* Media query for small devices (e.g., phones) */
 @media (max-width: 768px) {
   @keyframes ENTRY-zoomIn {
-    from { transform: scale(1); }
-    to { transform: scale(250); } /* Adjust scale for medium screens */
+    from {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+      transform: translate(-50%, -50%) scale(250); /* Adjusted for smaller screens */
+    }
   }
 
   .ENTRY-break {
-    gap: 5px; /* Reduce gap for compact layout */
+    gap: 5px;
   }
 }
 
 /* Media query for extra-small devices (e.g., very small phones) */
 @media (max-width: 480px) {
   .ENTRY-piece {
-    font-size: 3.5rem;
+    font-size: 3rem; /* Slightly smaller font for tiny screens */
   }
 
   .ENTRY-zoom {
-    font-size: 2.5rem;
+    font-size: 2.5rem; /* Adjust zoom font size */
   }
 
   @keyframes ENTRY-zoomIn {
-    from { transform: scale(1); }
-    to { transform: scale(180); } /* Smaller scale for tiny screens */
+    from {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+      transform: translate(-50%, -50%) scale(180); /* Further reduced scale */
+    }
   }
 
   .ENTRY-break {
-    gap: 3px; /* Minimal gap for compact layout */
+    gap: 3px;
   }
 }
