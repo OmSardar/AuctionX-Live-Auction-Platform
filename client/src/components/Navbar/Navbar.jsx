@@ -7,6 +7,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import { useSelector, useDispatch } from "react-redux";
 import { post } from "../../services/ApiEndpoint";
 import { Logout } from "../../redux/AuthSlice";
+import nav_mascot from "../../assets/images/Layouts/mascot_navbar.gif"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false); // State for dropdown handling
@@ -64,6 +65,13 @@ const Header = () => {
           <img src={brandLogo} alt="Brand Logo" />
         </Link>
       </div>
+      <div className="character-sitting">
+    <img
+      src={nav_mascot}
+      alt="Sitting Character"
+      className="character-image"
+    />
+  </div>
 
       {/* Navigation Menu */}
       <nav>
@@ -90,32 +98,33 @@ const Header = () => {
                 </li>
                 <li>
                   <button onClick={() => navigate("/category/Automobiles")}>
-                    Automobiles & Electronics
+                   Technology
                   </button>
                 </li>
                 <li>
                   <button onClick={() => navigate("/category/Furnitures")}>
-                    Furniture
+                  Homeappliances
                   </button>
                 </li>
                 <li>
                   <button onClick={() => navigate("/category/Beverages")}>
-                    Foods & Beverages
+                  Foodbeverage
                   </button>
                 </li>
-                <li>
-                  <button onClick={() => navigate("/category/Currencies")}>
-                    Currency
-                  </button>
-                </li>
+                
                 <li>
                   <button onClick={() => navigate("/category/Books")}>
-                    Books & Painting
+                  Stationery
                   </button>
                 </li>
                 <li>
                   <button onClick={() => navigate("/category/Antiques")}>
                     Antiques
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigate("/category/Currencies")}>
+                    Others
                   </button>
                 </li>
               </ul>
@@ -209,32 +218,32 @@ const Header = () => {
                 </li>
                 <li>
                   <button onClick={() => navigate("/category/Automobiles")}>
-                    Technology
+                    Automobiles & Electronics
                   </button>
                 </li>
                 <li>
                   <button onClick={() => navigate("/category/Furnitures")}>
-                    Homeappliances
+                    Furniture
                   </button>
                 </li>
                 <li>
                   <button onClick={() => navigate("/category/Beverages")}>
-                    Foodbeverage
+                    Foods & Beverages
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigate("/category/Currencies")}>
+                    Currency
                   </button>
                 </li>
                 <li>
                   <button onClick={() => navigate("/category/Books")}>
-                    Stationery
+                    Books & Painting
                   </button>
                 </li>
                 <li>
                   <button onClick={() => navigate("/category/Antiques")}>
                     Antiques
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigate("/category/Currencies")}>
-                    Others
                   </button>
                 </li>
               </ul>

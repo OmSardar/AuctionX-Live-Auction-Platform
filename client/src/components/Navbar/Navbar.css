@@ -43,11 +43,8 @@ header {
     0 0 30px rgba(255, 223, 150, 0.4), /* Larger, softer glow */
     0 0 40px rgba(255, 223, 150, 0.2); /* Soft fading outermost glow */
   /* Shadow effects */
-  /* border-radius: 15px; */
-  /* Rounded corners */
-  margin-bottom: 20px;
-  /* Margin below header */
-  /* Border at the top */
+  height: 110px;
+  /* height */
   border-bottom: 1px solid #ccc;
   /* Border at the bottom */
 }
@@ -64,13 +61,33 @@ header:hover {
 
 /* Logo Styling */
 .logo img {
-  width: 180px;
+  width: 185px;
   /* Logo width */
-  height: 40px;
+  height: 45px;
   /* Logo height */
   margin-left: 30px;
   /* Margin on the left */
 }
+/* Logo Styling */
+
+
+/* Character Sitting Styling */
+.character-sitting {
+  position: absolute;
+  top: 0;
+  left: 120px; /* Adjust the value to position it next to the logo */
+  z-index: 2;
+}
+
+.character-sitting .character-image {
+  position: absolute;
+  top: -23px; /* Adjust for alignment */
+  width: 130px; /* Adjust size */
+  margin-left: 115px;
+  transform: translateY(20%); /* Legs hanging below */
+ 
+}
+
 
 .logo {
   transition: transform 0.2s ease, filter 0.2s ease;
@@ -497,6 +514,9 @@ box-shadow:
     display: none;
     /* Hide desktop nav on mobile */
   }
+  header{
+    height: 90px;
+  }
 
   .hamburger {
     display: block;
@@ -566,6 +586,16 @@ box-shadow:
     margin-top: 170%;
     margin-left: 22%;
   }
+  .character-sitting .character-image {
+ 
+    top: -13px; /* Adjust for alignment */
+    width: 100px; /* Adjust size */
+    margin-left: 35px;
+   
+  }
+  .profile-btn  {
+    margin-left: 30%; 
+      }
 
 }
 
@@ -574,7 +604,9 @@ box-shadow:
     display: none;
     /* Hide desktop nav on mobile */
   }
-
+  header{
+    height: 90px;
+  }
   .hamburger {
     display: block;
     font-size: 24px;
@@ -643,4 +675,18 @@ box-shadow:
     margin-top: 170%;
     margin-left: 22%;
   }
+
+  .character-sitting .character-image {
+ 
+    top: -13px; /* Adjust for alignment */
+    width: 100px; /* Adjust size */
+    margin-left: 35px;
+   
+  }
+ 
+  .profile-btn  {
+    margin-left: 30%;
+      
+       
+      }
 }
