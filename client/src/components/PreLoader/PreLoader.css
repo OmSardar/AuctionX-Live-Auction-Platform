@@ -7,14 +7,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black; /* Ensures full coverage */
+  background-color: white; /* Original white background color */
   overflow: hidden;
   z-index: 1000;
 }
 
 /* Initial Loading Style */
 .ENTRY-loader.loading {
-  color: white; /* Text color to contrast black background */
+  color: black; /* Original text color remains black */
   font-size: 3.5rem;
   font-weight: bold;
   animation: ENTRY-pulse 1.5s infinite ease-in-out;
@@ -29,7 +29,7 @@
 .ENTRY-piece {
   font-size: 3.5rem;
   font-weight: bold;
-  color: white;
+  color: black; /* Original text color remains black */
   animation: ENTRY-breakApart 0.5s forwards;
 }
 
@@ -58,7 +58,7 @@
   transform-origin: center center; /* Ensures scaling from the center */
   font-size: 3.5rem;
   font-weight: bold;
-  color: white;
+  color: black; /* Original text color remains black */
   animation: ENTRY-zoomIn 1.5s forwards;
 }
 
