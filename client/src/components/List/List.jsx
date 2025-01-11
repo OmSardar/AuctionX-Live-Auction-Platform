@@ -8,7 +8,11 @@ import "./List.css";
 const ProductListing = () => {
   const productListRef = useRef(null);
   const [products, setProducts] = useState([]);
+<<<<<<< HEAD
   const [displayCount, setDisplayCount] = useState(7);
+=======
+  const [displayCount, setDisplayCount] = useState(6);
+>>>>>>> 3399ae43da55c480e954f632b726bc90cfda69d1
   const [category, setCategory] = useState(""); // Category state, can be set dynamically
   const navigate = useNavigate();
   const [selectedProductId, setSelectedProductId] = useState(null);
@@ -23,9 +27,13 @@ const ProductListing = () => {
 
   const fetchProducts = async () => {
     try {
+<<<<<<< HEAD
       const response = await axios.get(
         "https://auction-x.onrender.com/api/products/"
       );
+=======
+      const response = await axios.get("https://auction-x.onrender.com/api/products/");
+>>>>>>> 3399ae43da55c480e954f632b726bc90cfda69d1
 
       // Filter by Active status
       const activeProducts = response.data.filter(
