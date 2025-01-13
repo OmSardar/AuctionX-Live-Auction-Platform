@@ -6,7 +6,14 @@ import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook, faInstagram, faYoutube, faWhatsapp, faTelegram, faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import {
+  faFacebook,
+  faInstagram,
+  faYoutube,
+  faWhatsapp,
+  faTelegram,
+  faXTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 import mascotProfile from "../../../../assets/images/Layouts/mascot_profile.gif";
 
 function ProfilePage2() {
@@ -126,77 +133,114 @@ function ProfilePage2() {
                 <li className="list-group-item">
                   <Link to="/report">Report Something Suspicious</Link>
                 </li>
-                
-                
+
                 <li className="list-group-item">
                   <Link to="/contact">Contact Us</Link>
                 </li>
-                
               </ul>
             </div>
 
-                        <div className="card profilecard mt-3 p-1">
+            <div className="card profilecard mt-3 p-1">
               <ul className="list-group list-group-flush">
-              <li className="list-group-item insta">
-                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-                    <FontAwesomeIcon icon={faInstagram}  style={{ fontSize: '1.5rem', marginRight: '8px' }} />
-                      Instagram
-                    </a>
+                <li className="list-group-item insta">
+                  <a
+                    href="https://www.instagram.com/auctionx_official/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FontAwesomeIcon
+                      icon={faInstagram}
+                      style={{ fontSize: "1.5rem", marginRight: "8px" }}
+                    />
+                    Instagram
+                  </a>
                 </li>
                 <li className="list-group-item faceb">
-                    <a href="https://www.facebook.com/?_rdr" target="_blank" rel="noopener noreferrer">
-                      <FontAwesomeIcon icon={faFacebook} style={{ fontSize: '1.5rem', marginRight: '8px' }} />
-                      Facebook
-                    </a>
+                  <a
+                    href="https://www.facebook.com/share/15nxmDHcJ6/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FontAwesomeIcon
+                      icon={faFacebook}
+                      style={{ fontSize: "1.5rem", marginRight: "8px" }}
+                    />
+                    Facebook
+                  </a>
                 </li>
 
                 <li className="list-group-item yt">
-                    <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
-                    <FontAwesomeIcon icon={faYoutube} style={{ fontSize: '1.5rem', marginRight: '8px' }} />
-                      Youtube
-                    </a>
+                  <a
+                    href="https://www.youtube.com/@AuctionX-h4m"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FontAwesomeIcon
+                      icon={faYoutube}
+                      style={{ fontSize: "1.5rem", marginRight: "8px" }}
+                    />
+                    Youtube
+                  </a>
                 </li>
 
-                
                 <li className="list-group-item whatsapp">
-                    <a href="https://www.whatsapp.com/" target="_blank" rel="noopener noreferrer">
-                    <FontAwesomeIcon icon={faWhatsapp} style={{ fontSize: '1.5rem', marginRight: '8px' }} />
-                      Whatsapp
-                    </a>
+                  <a
+                    href="https://www.whatsapp.com/channel/0029Vb2uMkh6buMFgEoiP013"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FontAwesomeIcon
+                      icon={faWhatsapp}
+                      style={{ fontSize: "1.5rem", marginRight: "8px" }}
+                    />
+                    Whatsapp
+                  </a>
                 </li>
                 <li className="list-group-item tweeter">
-                    <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
-                    <FontAwesomeIcon icon={faXTwitter} style={{ fontSize: '1.5rem', marginRight: '8px' }} />
-                      X
-                    </a>
+                  <a
+                    href="https://x.com/Auction__X"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FontAwesomeIcon
+                      icon={faXTwitter}
+                      style={{ fontSize: "1.5rem", marginRight: "8px" }}
+                    />
+                    X
+                  </a>
                 </li>
                 <li className="list-group-item telegram">
-                    <a href="https://telegram.org/" target="_blank" rel="noopener noreferrer">
-                    <FontAwesomeIcon icon={faTelegram}  style={{ fontSize: '1.5rem', marginRight: '8px' }} />
-                       Telegram
-                    </a>
+                  <a
+                    href="https://t.me/+-gWZnAeTQuA0ZTJl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FontAwesomeIcon
+                      icon={faTelegram}
+                      style={{ fontSize: "1.5rem", marginRight: "8px" }}
+                    />
+                    Telegram
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
-
-          
 
           {/* Right Profile Information Section */}
           <div className="col-md-8">
             <div className="card profilecard mb-3">
               <div className="card-body">
                 <div className="d-flex">
-               <b><h5 className="card-title mb-0">Profile Information</h5></b> 
-                 <button
-                      className="btn btn-primary btn-sm mt-3  profile-flex-button"
-                      onClick={toggleEdit}
-                    >
-    
-                     
-                      <FontAwesomeIcon icon={faEdit} /> 
-                    </button>
-                    </div>
+                  <b>
+                    <h5 className="card-title mb-0">Profile Information</h5>
+                  </b>
+                  <button
+                    className="btn btn-primary btn-sm mt-3  profile-flex-button"
+                    onClick={toggleEdit}
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                </div>
                 {isEditing ? (
                   <form>
                     {/* Editable Inputs */}
@@ -242,40 +286,39 @@ function ProfilePage2() {
                     </div>
                     {/* Optional Gender Field */}
                     <div className="mb-3">
-                    
-  <div className="form-check form-check-inline">
-    <input
-      className="form-check-input"
-      type="radio"
-      name="gender"
-      value="male"
-      checked={profileInfo.gender === "male"}
-      onChange={handleInputChange}
-    />
-    <label className="form-check-label">Male</label>
-  </div>
-  <div className="form-check form-check-inline">
-    <input
-      className="form-check-input"
-      type="radio"
-      name="gender"
-      value="female"
-      checked={profileInfo.gender === "female"}
-      onChange={handleInputChange}
-    />
-    <label className="form-check-label">Female</label>
-  </div>
-  <div className="form-check form-check-inline">
-    <input
-      className="form-check-input"
-      type="radio"
-      name="gender"
-      value="other"
-      checked={profileInfo.gender === "other"}
-      onChange={handleInputChange}
-    />
-    <label className="form-check-label">Other</label>
-  </div>
+                      <div className="form-check form-check-inline">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="gender"
+                          value="male"
+                          checked={profileInfo.gender === "male"}
+                          onChange={handleInputChange}
+                        />
+                        <label className="form-check-label">Male</label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="gender"
+                          value="female"
+                          checked={profileInfo.gender === "female"}
+                          onChange={handleInputChange}
+                        />
+                        <label className="form-check-label">Female</label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="gender"
+                          value="other"
+                          checked={profileInfo.gender === "other"}
+                          onChange={handleInputChange}
+                        />
+                        <label className="form-check-label">Other</label>
+                      </div>
                     </div>
                     {/* Save and Cancel Buttons */}
                     <button
@@ -345,10 +388,10 @@ function ProfilePage2() {
                       </div>
                     )}
                     <img
-                        src={mascotProfile}
-                        alt="Character"
-                        className="bottom-right-image"
-                      />
+                      src={mascotProfile}
+                      alt="Character"
+                      className="bottom-right-image"
+                    />
                   </div>
                 )}
               </div>
@@ -381,7 +424,7 @@ function ProfilePage2() {
                       It happens as soon as you confirm the verification code
                       sent to your email (or mobile) and save the changes.
                     </p>
-                   
+
                     <p>
                       <strong>
                         Does my Seller account get affected when I update my
