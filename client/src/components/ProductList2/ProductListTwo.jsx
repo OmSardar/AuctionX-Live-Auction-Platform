@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./ProductListTwo.css";
 import { useNavigate } from "react-router-dom";
-import ReactDOM from "react-dom"; // Import ReactDOM for creating a portal
+import ReactDOM from "react-dom";
+import { GiSandsOfTime } from "react-icons/gi";
+import { ImPriceTags } from "react-icons/im";
+import { BiSolidCategoryAlt } from "react-icons/bi";
 import ProductDetailsPopup from "../ProductDetails/ProductDetailsPopUp";
 
 const ProductListTwo = () => {
@@ -10,26 +13,25 @@ const ProductListTwo = () => {
   const [displayedProducts, setDisplayedProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const productsPerPage = 11;
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [timeLeft, setTimeLeft] = useState({});
+  const productsPerPage = 11;
 
   const handleOpenPopup = (id) => {
-    setSelectedProductId(id); // Open the popup with the selected product's ID
+    setSelectedProductId(id);
   };
 
   const handleClosePopup = () => {
-    setSelectedProductId(null); // Close the popup
+    setSelectedProductId(null);
   };
 
   const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
 
   useEffect(() => {
-    const fetchAndRandomizeProducts = async () => {
+    const fetchProducts = async () => {
       try {
         const response = await fetch("https://auction-x.onrender.com/api/products/");
         const data = await response.json();
-
-        // Filter only active products
         const activeProducts = data.filter(
           (product) => product.status === "Active"
         );
@@ -38,17 +40,80 @@ const ProductListTwo = () => {
           console.log("No active products found");
         }
 
-        // Shuffle and set the active products
         const randomizedData = shuffleArray(activeProducts);
         setProducts(randomizedData);
         setDisplayedProducts(randomizedData.slice(0, productsPerPage));
+
+        // Initialize timers for products
+        initializeTimers(randomizedData);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
 
-    fetchAndRandomizeProducts();
+    fetchProducts();
   }, []);
+
+  const initializeTimers = (products) => {
+    products.forEach((product) => {
+      const { biddingStartDate, biddingStartTime, biddingEndTime } = product;
+      const startDate = new Date(biddingStartDate);
+      const startTime = new Date(biddingStartTime);
+
+      startDate.setUTCHours(
+        startTime.getUTCHours(),
+        startTime.getUTCMinutes(),
+        0,
+        0
+      );
+
+      const endTime = new Date(biddingEndTime);
+
+      if (!isNaN(endTime)) {
+        updateTimer(product._id, startDate, endTime);
+        setInterval(() => updateTimer(product._id, startDate, endTime), 1000);
+      } else {
+        console.error("Invalid end time for product:", product._id);
+      }
+    });
+  };
+
+  const updateTimer = (productId, startTime, endTime) => {
+    const now = new Date().getTime();
+    let difference =
+      now < startTime.getTime()
+        ? startTime.getTime() - now
+        : endTime.getTime() - now;
+
+    if (difference > 0) {
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      setTimeLeft((prev) => ({
+        ...prev,
+        [productId]: {
+          days: String(days).padStart(2, "0"),
+          hours: String(hours).padStart(2, "0"),
+          minutes: String(minutes).padStart(2, "0"),
+          seconds: String(seconds).padStart(2, "0"),
+        },
+      }));
+    } else {
+      setTimeLeft((prev) => ({
+        ...prev,
+        [productId]: {
+          days: "00",
+          hours: "00",
+          minutes: "00",
+          seconds: "00",
+        },
+      }));
+    }
+  };
 
   const loadMoreProducts = useCallback(() => {
     if (loading) return;
@@ -73,39 +138,6 @@ const ProductListTwo = () => {
     }
   };
 
-  const calculateTimeLeft = (biddingStartTime) => {
-    if (!biddingStartTime) return "Date not available";
-
-    let endTime;
-
-    // Check if biddingStartTime is a full ISO string or just a time string
-    if (biddingStartTime.includes("T")) {
-      // If it's an ISO string, directly convert it to a Date
-      endTime = new Date(biddingStartTime);
-    } else {
-      // If it's just a time (e.g., "15:00"), assume today's date and append the time
-      const currentDate = new Date();
-      const dateString = `${currentDate.getFullYear()}-${
-        currentDate.getMonth() + 1
-      }-${currentDate.getDate()}T${biddingStartTime}:00`;
-      endTime = new Date(dateString);
-    }
-
-    if (isNaN(endTime.getTime())) return "Invalid Date"; // Check for invalid date
-
-    const now = new Date();
-    const timeDifference = endTime - now;
-
-    if (timeDifference <= 0) return "Time expired";
-
-    const hoursLeft = Math.floor(timeDifference / (1000 * 60 * 60));
-    const minutesLeft = Math.floor(
-      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-    );
-
-    return `${hoursLeft} hours, ${minutesLeft} minutes`;
-  };
-
   return (
     <div className="ProductTwo-body">
       <div id="result" className="ProductTwo-container" onScroll={handleScroll}>
@@ -119,14 +151,23 @@ const ProductListTwo = () => {
               />
               <div className="ProductTwo-info">
                 <h5 className="ProductTwo-name">{product.name}</h5>
-
                 <h6>
-                  <p>Category: {product.category}</p>
+                  <p>
+                    <BiSolidCategoryAlt /> Category: {product.category}
+                  </p>
                 </h6>
-
-                <h5>Price: ₹{product.biddingStartPrice}</h5>
+                <h5>
+                  <ImPriceTags /> ₹{product.biddingStartPrice}
+                </h5>
                 <p className="ProductTwo-time">
-                  Ends in: {calculateTimeLeft(product.biddingStartTime)}
+                  <GiSandsOfTime />
+                  {timeLeft[product._id]
+                    ? ` ${timeLeft[product._id].days}d ${
+                        timeLeft[product._id].hours
+                      }h ${timeLeft[product._id].minutes}m ${
+                        timeLeft[product._id].seconds
+                      }s`
+                    : "Loading..."}
                 </p>
                 <button
                   className="ProductTwo-button"
@@ -153,7 +194,7 @@ const ProductListTwo = () => {
               onClose={handleClosePopup}
             />
           </div>,
-          document.body // This will render the popup at the body level
+          document.body
         )}
     </div>
   );

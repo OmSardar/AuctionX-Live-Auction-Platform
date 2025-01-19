@@ -16,6 +16,10 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Share from "../Share/ShareMenu";
+import { MdAccountBalanceWallet } from "react-icons/md";
+import { RiMapPinTimeFill } from "react-icons/ri";
+import { IoPerson } from "react-icons/io5";
+import { ImHammer2 } from "react-icons/im";
 // import TimeCountdown from "./TimeCountdown";
 import "./TimeCountdown.css";
 import io from "socket.io-client";
@@ -246,7 +250,10 @@ const CarDetailsPage = () => {
         showWinningAlert(userResponse.data.name);
 
         // Post auction summary data
-        await axios.post("https://auction-x.onrender.com/api/orders/", auctionSummary);
+        await axios.post(
+          "https://auction-x.onrender.com/api/orders/",
+          auctionSummary
+        );
 
         // Delete the product after the auction ends
         await axios.delete(
@@ -383,10 +390,13 @@ const CarDetailsPage = () => {
           // Step 4: Calculate the new amount after refunding the previous bidder
           const newAmount = (productData.tempamount || 0) + fetchedAmount;
           // Step 5: Update the previous bidder's amount (refund them)
-          await axios.patch(`https://auction-x.onrender.com/api/auth/update-amount`, {
-            email: previousBidderEmail,
-            amount: newAmount,
-          });
+          await axios.patch(
+            `https://auction-x.onrender.com/api/auth/update-amount`,
+            {
+              email: previousBidderEmail,
+              amount: newAmount,
+            }
+          );
 
           // Proceed with the rest of your logic for placing the bid
         } catch (error) {
@@ -407,18 +417,21 @@ const CarDetailsPage = () => {
 
       const localbiddername = localStorage.getItem("name"); // Retrieve email from local storage
 
-      await fetch(`https://auction-x.onrender.com/api/products/tempdata/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tempuseremail: email, // Use email fetched from `fetchAmount`
-          tempamount: enteredAmount,
-          tempname: localbiddername, // Use localbiddername instead of bidderName
-          biddingStartPrice: enteredAmount, // Add biddingStartPrice to request body
-        }),
-      });
+      await fetch(
+        `https://auction-x.onrender.com/api/products/tempdata/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            tempuseremail: email, // Use email fetched from `fetchAmount`
+            tempamount: enteredAmount,
+            tempname: localbiddername, // Use localbiddername instead of bidderName
+            biddingStartPrice: enteredAmount, // Add biddingStartPrice to request body
+          }),
+        }
+      );
 
       const userName = localStorage.getItem("name"); // Retrieve email from local storage
 
@@ -454,7 +467,10 @@ const CarDetailsPage = () => {
   };
 
   return (
-    <div style={{ marginTop: "160px", marginBottom: "140px" }} className="ProductDetails">
+    <div
+      style={{ marginTop: "160px", marginBottom: "140px" }}
+      className="ProductDetails"
+    >
       <Container className="mt-5">
         <Row>
           <Col md={8}>
@@ -506,8 +522,10 @@ const CarDetailsPage = () => {
             <Card>
               <Card.Body>
                 <h3>{carData.name}</h3>
-                <h5>Current Bid : ₹{currentBid}</h5>
-                <h5>Current Bidder : {bidderName}</h5>
+                <h5><ImHammer2 /> Current Bid : ₹{currentBid}</h5>
+                <h5>
+                  <IoPerson /> Current Bidder : {bidderName}
+                </h5>
 
                 <div className="timer">
                   <h2>
@@ -517,6 +535,7 @@ const CarDetailsPage = () => {
                         ? "HAS ENDED"
                         : "ENDS IN:"
                       : "STARTS IN:"}
+                    <RiMapPinTimeFill />
                   </h2>
                   <div className="timer__boxes">
                     <div className="timer__box">
@@ -586,7 +605,9 @@ const CarDetailsPage = () => {
 
             <Card className="mt-3">
               <Card.Body>
-                <h5>Balance : ₹{userMoney}</h5>
+                <h5>
+                  <MdAccountBalanceWallet /> Balance : ₹{userMoney}
+                </h5>
               </Card.Body>
             </Card>
 

@@ -21,7 +21,9 @@ const BidAnItem = () => {
         >
           <span className="SpanTag">More items to consider</span>
         </h2>
-        <ProductListTwo />
+        <div className="neon-border">
+          <ProductListTwo />
+        </div>
         <h2
           style={{
             textAlign: "center",

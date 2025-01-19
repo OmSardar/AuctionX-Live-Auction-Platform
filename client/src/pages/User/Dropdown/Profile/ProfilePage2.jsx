@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios"; // Import axios for making API requests
 import "./ProfilePage2.css";
 import pfp from "../../../../assets/images/Layouts/profile.png";
+import messegeBox from "../../../../assets/images/Layouts/messageBox.png";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,6 +31,159 @@ function ProfilePage2() {
 
   // State to track edit mode
   const [isEditing, setIsEditing] = useState(false);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+  const [selectedSubQuestion, setSelectedSubQuestion] = useState(null);
+  const [isTyping, setIsTyping] = useState(false); // New state for typing status
+  const chatRef = useRef(null);
+  const answerRef = useRef(null);
+
+  // Toggle the popup visibility
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // Close the popup when clicking outside
+  const handleClickOutside = (event) => {
+    if (chatRef.current && !chatRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  // Attach event listener for outside click
+  React.useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
+  // Predefined questions with sub-questions
+  const questionBank = [
+    {
+      id: 1,
+      question: "What is Auction X?",
+      subQuestions: [
+        {
+          id: "1a",
+          question: "What does Auction X offer?",
+          answer:
+            "Auction X offers an online bidding platform for sellers and buyers.",
+        },
+        {
+          id: "1b",
+          question: "Who can use Auction X?",
+          answer:
+            "Anyone who wants to buy or sell products via auctions can use Auction X.",
+        },
+      ],
+    },
+    {
+      id: 2,
+      question: "How does bidding work?",
+      subQuestions: [
+        {
+          id: "2a",
+          question: "What is the minimum bid?",
+          answer: "The minimum bid is set by the seller for each item.",
+        },
+        {
+          id: "2b",
+          question: "Can I withdraw my bid?",
+          answer: "No, once placed, a bid cannot be withdrawn.",
+        },
+      ],
+    },
+    {
+      id: 3,
+      question: "How can I create an account?",
+      subQuestions: [
+        {
+          id: "3a",
+          question: "Is account creation free?",
+          answer: "Yes, creating an account on Auction X is free.",
+        },
+        {
+          id: "3b",
+          question: "What details are required?",
+          answer:
+            "You need an email, phone number, and password to create an account.",
+        },
+      ],
+    },
+    {
+      id: 4,
+      question: "How to add money?",
+      subQuestions: [
+        {
+          id: "4a",
+          question: "What are the payment methods?",
+          answer:
+            "You can add money using credit cards, debit cards, UPI, or net banking.",
+        },
+        {
+          id: "4b",
+          question: "Is there a minimum deposit?",
+          answer: "Yes, the minimum deposit is $10 to activate your wallet.",
+        },
+        {
+          id: "4c",
+          question: "Are there any fees?",
+          answer: "No, there are no additional fees for adding money.",
+        },
+      ],
+    },
+    {
+      id: 5,
+      question: "What are the types of login?",
+      subQuestions: [
+        {
+          id: "5a",
+          question: "How does normal login work?",
+          answer: "You can log in using your registered email and password.",
+        },
+        {
+          id: "5b",
+          question: "How does Google login work?",
+          answer:
+            "Click on 'Login with Google,' and sign in using your Google account.",
+        },
+        {
+          id: "5c",
+          question: "Can I switch between login types?",
+          answer:
+            "Yes, you can log in with either type as long as your email matches.",
+        },
+      ],
+    },
+  ];
+
+  // Handle main question selection
+  const handleQuestionClick = (id) => {
+    setSelectedQuestionId(selectedQuestionId === id ? null : id);
+    setSelectedSubQuestion(null); // Reset sub-question selection
+    setIsTyping(false); // Reset typing state
+  };
+
+  // Handle sub-question selection
+  const handleSubQuestionClick = (subQuestion) => {
+    setSelectedSubQuestion(null); // Reset selected sub-question
+    setIsTyping(true); // Show typing state
+
+    setTimeout(() => {
+      setSelectedSubQuestion(subQuestion);
+      setIsTyping(false); // Hide typing state
+      setTimeout(() => {
+        answerRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100); // Smooth scroll to the answer
+    }, 1500); // Delay to simulate typing
+  };
 
   // Fetch profile picture URL and user data from localStorage on component mount
   useEffect(() => {
@@ -387,11 +541,93 @@ function ProfilePage2() {
                         </div>
                       </div>
                     )}
+
                     <img
                       src={mascotProfile}
                       alt="Character"
                       className="bottom-right-image"
                     />
+                    {/* Button to toggle chat popup */}
+                    <img
+                      src={messegeBox}
+                      alt="Character"
+                      className="bottom-right-messegeBox"
+                      onClick={togglePopup}
+                    />
+
+                    {/* Chat popup */}
+                    {isOpen && (
+                      <div className="chat-popup-profile" ref={chatRef}>
+                        <div className="chat-container-profile">
+                          {/* Chat header */}
+                          <div className="chat-header-profile">
+                            <h2>Auction X chat</h2>
+                            <span>get help 24X7</span>
+                          </div>
+
+                          {/* Chat body */}
+                          <div className="chat-body-profile">
+                            {/* Display typing state or selected sub-question answer */}
+                            {isTyping ? (
+                              <div className="chat-message-profile typing-indicator">
+                                <p>Typing...</p>
+                              </div>
+                            ) : (
+                              selectedSubQuestion && (
+                                <div
+                                  className="chat-message-profile"
+                                  ref={answerRef}
+                                >
+                                  <p className="user-question-profile">
+                                    Q: {selectedSubQuestion.question}
+                                  </p>
+                                  <p className="bot-answer-profile">
+                                    A: {selectedSubQuestion.answer}
+                                  </p>
+                                </div>
+                              )
+                            )}
+
+                            {/* Main question list */}
+                            <div className="chat-options-profile">
+                              {questionBank.map((mainQuestion) => (
+                                <div key={mainQuestion.id}>
+                                  <button
+                                    className="chat-option-profile main-question-profile"
+                                    onClick={() =>
+                                      handleQuestionClick(mainQuestion.id)
+                                    }
+                                  >
+                                    {mainQuestion.question}
+                                  </button>
+
+                                  {/* Sub-questions for the selected main question */}
+                                  {selectedQuestionId === mainQuestion.id && (
+                                    <div className="sub-questions-profile">
+                                      {mainQuestion.subQuestions.map(
+                                        (subQuestion) => (
+                                          <button
+                                            key={subQuestion.id}
+                                            className="chat-option-profile sub-question-profile"
+                                            onClick={() =>
+                                              handleSubQuestionClick(
+                                                subQuestion
+                                              )
+                                            }
+                                          >
+                                            {subQuestion.question}
+                                          </button>
+                                        )
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

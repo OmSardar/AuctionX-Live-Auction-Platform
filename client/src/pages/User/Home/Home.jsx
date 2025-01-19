@@ -5,12 +5,14 @@ import Banner from "../../../components/Banner/Banner";
 import BannerTwo from "../../../components/Banner2/BannerTwo";
 import ProductListTwo from "../../../components/ProductList2/ProductListTwo";
 import "./Home.css"; // Ensure the correct path is provided
+import ChatQNA from "../../../components/ChatQNA/ChatQNA";
 
 const Home = () => {
   return (
     <>
+      <ChatQNA />
       <div style={{ padding: "20px" }}>
-        <section style={{ marginBottom: "20px", marginTop: "140px" }}>
+        <section style={{ marginBottom: "20px", marginTop: "135px" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Banner />
           </div>
@@ -21,7 +23,7 @@ const Home = () => {
           <h2
             style={{
               textAlign: "center",
-              marginTop: "70px",
+              marginTop: "50px",
               marginBottom: "70px",
             }}
             className="neon-border"
