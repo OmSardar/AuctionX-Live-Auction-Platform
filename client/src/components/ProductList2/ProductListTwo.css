@@ -86,10 +86,11 @@
 }
 
 .ProductTwo-time {
-    color: #ff4d4d;
     font-weight: bold;
     margin-top: 10px;
+    text-align: center;
 }
+
 
 .ProductTwo-button {
     padding: 10px;
