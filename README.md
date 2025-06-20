@@ -69,3 +69,12 @@ Build AUCTION-X-LOCALHOST from the source and install dependencies:
 
 ```bash
 git clone https://github.com/OM-SARDAR/AUCTION-X-LOCALHOST
+
+```bash
+cd AUCTION-X-LOCALHOST
+
+```bash
+npm install
+
+```bash
+npm start
