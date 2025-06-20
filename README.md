@@ -71,12 +71,12 @@ Build AUCTION-X-LOCALHOST from the source and install dependencies:
 git clone https://github.com/OM-SARDAR/AUCTION-X-LOCALHOST
 ```
 
-2. Go to folder
+2. Go to project folder
 ```
 cd AUCTION-X-LOCALHOST
 ```
 
-3. Install dependencies node mofules
+3. Install dependencies along with node mofules
 ```
 npm install
 ```
