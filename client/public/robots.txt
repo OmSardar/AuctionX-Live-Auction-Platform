@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Block sensitive/auth routes
+Disallow: /login
+Disallow: /forgetpassword
+Disallow: /resetpassword
+Disallow: /OTP
+Disallow: /OTPverify
+
+# Block admin routes
+Disallow: /admin
+Disallow: /admin/
+
+# Allow important public pages
+Allow: /
+Allow: /about
+Allow: /whyus
+Allow: /contact
+Allow: /faq
+Allow: /category/
+Allow: /product/
+Allow: /todaybid
+Allow: /tomorrowbid
+
+# Sitemap
+Sitemap: https://auction-x-minor-project-2024.onrender.com/sitemap.xml

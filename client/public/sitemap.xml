@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://www.sitemaps.org/schemas/sitemap/0.9
+    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <url>
+    <loc>https://auction-x-minor-project-2024.onrender.com/</loc>
+    <priority>1.00</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://auction-x-minor-project-2024.onrender.com/about</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://auction-x-minor-project-2024.onrender.com/whyus</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://auction-x-minor-project-2024.onrender.com/contact</loc>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://auction-x-minor-project-2024.onrender.com/faq</loc>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://auction-x-minor-project-2024.onrender.com/todaybid</loc>
+    <priority>0.90</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://auction-x-minor-project-2024.onrender.com/tomorrowbid</loc>
+    <priority>0.90</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>https://auction-x-minor-project-2024.onrender.com/privacy</loc>
+    <priority>0.50</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://auction-x-minor-project-2024.onrender.com/security</loc>
+    <priority>0.50</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://auction-x-minor-project-2024.onrender.com/terms</loc>
+    <priority>0.50</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+
+</urlset>

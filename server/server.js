@@ -133,9 +133,9 @@ app.get(
     const profilePic = JSON.stringify(user.profilePic);
 
     res.redirect(
-      `https://auction-x-minor-project-2024.onrender.com/login?token=${token}&name=${user.name}&email=${
-        user.email
-      }&profilePic=${profilePic}&role=${
+      `https://auction-x-minor-project-2024.onrender.com/login?token=${token}&name=${
+        user.name
+      }&email=${user.email}&profilePic=${profilePic}&role=${
         user.role
       }&isNewUser=${isNewUser}&Gverified=${user.isVerified ? "true" : "false"}`
     );
