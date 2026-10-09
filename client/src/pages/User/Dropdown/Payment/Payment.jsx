@@ -39,7 +39,7 @@ const PaymentPage = () => {
     const fetchAmount = async () => {
       try {
         const response = await axios.get(
-          `https://auction-x.onrender.com/api/auth/get-amount?email=${email}`
+          `${process.env.REACT_APP_API_URL}/api/auth/get-amount?email=${email}`
         );
         if (response.data && response.data.amount !== undefined) {
           setAmount(response.data.amount);
@@ -103,7 +103,7 @@ const PaymentPage = () => {
             setAmount(() => amount + amountToPay);
             // Send the updated amount to the server
             axios
-              .patch("https://auction-x.onrender.com/api/auth/update-amount", {
+              .patch(`${process.env.REACT_APP_API_URL}/api/auth/update-amount`, {
                 email,
                 amount: totalamount,
               })

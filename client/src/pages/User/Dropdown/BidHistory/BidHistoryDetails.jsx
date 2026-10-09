@@ -16,7 +16,7 @@ const DetailedOrderPage = () => {
     const fetchOrderDetails = async () => {
       try {
         const response = await axios.get(
-          `https://auction-x.onrender.com/api/orders/${id}`
+          `${process.env.REACT_APP_API_URL}/api/orders/${id}`
         );
         setOrder(response.data);
       } catch (error) {

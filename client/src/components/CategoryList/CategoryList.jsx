@@ -20,7 +20,7 @@ const ProductListTwo = () => {
     const fetchAndRandomizeProducts = async () => {
       try {
         const response = await fetch(
-          "https://auction-x.onrender.com/api/products/"
+          `${process.env.REACT_APP_API_URL}/api/products/`
         );
         const data = await response.json();
 

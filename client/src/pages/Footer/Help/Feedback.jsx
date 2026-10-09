@@ -70,7 +70,7 @@ function FeedbackForm() {
         };
 
         const response = await axios.post(
-          "https://auction-x.onrender.com/api/products/submit",
+          `${process.env.REACT_APP_API_URL}/api/products/submit`,
           entry
         );
         toast.success("Feedback sent successfully");

@@ -26,7 +26,7 @@ const ResetPassword = () => {
     try {
       // Make an API call to reset the password
       const response = await axios.patch(
-        "https://auction-x.onrender.com/api/auth/update-password",
+        `${process.env.REACT_APP_API_URL}/api/auth/update-password`,
         {
           email,
           newPassword,

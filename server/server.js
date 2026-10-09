@@ -19,11 +19,12 @@ const OrderRoutes = require("./routes/SellAnItemRoutes/orderRoutes.js");
 const http = require("http");
 const socketIo = require("socket.io");
 const PORT = process.env.PORT || 3000;
+const CLIENT_URL = process.env.CLIENT_URL;
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "https://auction-x-minor-project-2024.onrender.com", // your frontend URL
+    origin: CLIENT_URL,
     methods: ["GET", "POST", "DELETE", "PATCH", "PUT"],
     allowedHeaders: ["Content-Type"], // Allow any required headers
     credentials: true, // Allow credentials if needed (cookies or headers)
@@ -44,8 +45,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     credentials: true,
-    origin: "https://auction-x-minor-project-2024.onrender.com",
-  })
+    origin: CLIENT_URL,
+  }),
 );
 
 // Routes setup
@@ -83,7 +84,7 @@ passport.use(
                 },
               ],
             },
-            { new: true }
+            { new: true },
           );
         } else {
           // New user: Create the user and set isNewUser to true
@@ -106,7 +107,7 @@ passport.use(
         const token = jwt.sign(
           { email: user.email, name: user.name, role: user.role, isNewUser },
           process.env.JWT_SECRETE,
-          { expiresIn: "30d" }
+          { expiresIn: "30d" },
         );
         console.log("send token:", token);
 
@@ -114,14 +115,14 @@ passport.use(
       } catch (error) {
         done(error);
       }
-    }
-  )
+    },
+  ),
 );
 
 // Google OAuth Routes
 app.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google", { scope: ["profile", "email"] }),
 );
 
 app.get(
@@ -133,13 +134,13 @@ app.get(
     const profilePic = JSON.stringify(user.profilePic);
 
     res.redirect(
-      `https://auction-x-minor-project-2024.onrender.com/login?token=${token}&name=${
+      `${CLIENT_URL}/login?token=${token}&name=${
         user.name
       }&email=${user.email}&profilePic=${profilePic}&role=${
         user.role
-      }&isNewUser=${isNewUser}&Gverified=${user.isVerified ? "true" : "false"}`
+      }&isNewUser=${isNewUser}&Gverified=${user.isVerified ? "true" : "false"}`,
     );
-  }
+  },
 );
 
 // Test route

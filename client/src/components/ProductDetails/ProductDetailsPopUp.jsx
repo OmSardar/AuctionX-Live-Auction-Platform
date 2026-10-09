@@ -27,7 +27,7 @@ const ProductDetailsPopup = ({ productId, onClose }) => {
     const fetchProductData = async () => {
       try {
         const response = await axios.get(
-          `https://auction-x.onrender.com/api/products/${productId}`
+          `${process.env.REACT_APP_API_URL}/api/products/${productId}`
         );
 
         const { biddingStartDate, biddingStartTime, biddingEndTime } =
@@ -100,7 +100,7 @@ const ProductDetailsPopup = ({ productId, onClose }) => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `https://auction-x.onrender.com/api/products/${productId}`
+          `${process.env.REACT_APP_API_URL}/api/products/${productId}`
         );
         setProduct(response.data);
       } catch (error) {

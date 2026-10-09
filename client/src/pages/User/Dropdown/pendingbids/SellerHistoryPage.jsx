@@ -22,7 +22,7 @@ const SellerHistoryPage = () => {
 
       try {
         const response = await axios.get(
-          `https://auction-x.onrender.com/api/products/email/${email}`
+          `${process.env.REACT_APP_API_URL}/api/products/email/${email}`
         ); // Fetch listings based on email
         setListings(response.data); // Set listings state
       } catch (error) {
@@ -60,7 +60,7 @@ const SellerHistoryPage = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`https://auction-x.onrender.com/api/products/${id}`); // Delete the listing
+        await axios.delete(`${process.env.REACT_APP_API_URL}/api/products/${id}`); // Delete the listing
         toast.success(`${listingToDelete.name} is deleted successfully`);
         setListings((prevListings) =>
           prevListings.filter((listing) => listing._id !== id)

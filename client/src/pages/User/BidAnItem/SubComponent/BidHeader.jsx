@@ -18,7 +18,7 @@ const Header = () => {
     const fetchAmount = async () => {
       try {
         const response = await axios.get(
-          `https://auction-x.onrender.com/api/auth/get-amount?email=${email}`
+          `${process.env.REACT_APP_API_URL}/api/auth/get-amount?email=${email}`
         );
         if (response.data && response.data.amount !== undefined) {
           setAmount(response.data.amount);

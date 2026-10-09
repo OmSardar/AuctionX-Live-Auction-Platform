@@ -30,7 +30,7 @@ const ProductListTwo = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://auction-x.onrender.com/api/products/");
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/`);
         const data = await response.json();
         const activeProducts = data.filter(
           (product) => product.status === "Active"

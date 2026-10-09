@@ -15,7 +15,7 @@ const SearchAndPostDetail = () => {
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
-        const response = await axios.get("https://auction-x.onrender.com/api/products/");
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/`);
 
         // Filter products by 'Active' status before setting them in the state
         const activeProducts = response.data.products

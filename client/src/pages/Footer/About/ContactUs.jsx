@@ -40,7 +40,7 @@ const ContactUs = () => {
 
     try {
       const response = await axios.post(
-        "https://auction-x.onrender.com/api/products/contact-us",
+        `${process.env.REACT_APP_API_URL}/api/products/contact-us`,
         formData
       ); // Replace with your actual API endpoint
       setStatus({ submitted: true, error: false });

@@ -105,7 +105,7 @@ const VerifyProfilePage = () => {
 
       // Submit profile update to backend
       const profileUpdateResponse = await axios.patch(
-        "https://auction-x.onrender.com/api/auth/updateProfile",
+        `${process.env.REACT_APP_API_URL}/api/auth/updateProfile`,
         payload,
         {
           headers: {
@@ -124,7 +124,7 @@ const VerifyProfilePage = () => {
 
       // Send OTP request before navigating
       const otpResponse = await axios.post(
-        "https://auction-x.onrender.com/api/auth/send-otp",
+        `${process.env.REACT_APP_API_URL}/api/auth/send-otp`,
         { email },
         {
           headers: {

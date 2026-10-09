@@ -25,7 +25,7 @@ const ProductListing = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "https://auction-x.onrender.com/api/products/"
+        `${process.env.REACT_APP_API_URL}/api/products/`
       );
 
       // Filter by Active status

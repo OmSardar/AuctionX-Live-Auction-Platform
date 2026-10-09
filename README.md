@@ -120,8 +120,11 @@ cd AUCTION-X-LOCALHOST
 
   # Step 3: Add your environment variable inside the file
   # Example:
+  # REACT_APP_API_URL=http://localhost:5000
+  # REACT_APP_CLIENT_URL=http://localhost:3000
   # REACT_APP_RAZORPAY_API_KEY=YOUR_RAZORPAY_API_KEY_HERE
   ```
+  For the Render frontend deployment, set `REACT_APP_API_URL` to `https://auction-x.onrender.com` and `REACT_APP_CLIENT_URL` to `https://auction-x-minor-project-2024.onrender.com`.
 
   C. Install dependencies along with node modules
   ```
@@ -152,6 +155,7 @@ cd AUCTION-X-LOCALHOST
   # Example:
   # JWT_SECRETE=YOUR_JWT_SECRET_HERE
   # PORT=5000
+  # CLIENT_URL=http://localhost:3000
   # MONGODB_URL=mongodb+srv://<YOUR_USERNAME:YOUR_PASSWORD@cluster0.tolhj.mongodb.net/YOUR_SCHEMA_NAME?retryWrites=true&w=majority&appName=Cluster0
   # GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID_HERE
   # GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET_HERE
@@ -161,6 +165,7 @@ cd AUCTION-X-LOCALHOST
   # CLOUDINARY_API_KEY=YOUR_CLOUDINARY_API_KEY_HERE
   # CLOUDINARY_API_SECRET=YOUR_CLOUDINARY_API_SECRET
   ```
+  Set `CLIENT_URL` to `https://auction-x-minor-project-2024.onrender.com` for the Render backend deployment.
   C. Install dependencies along with node modules
   ```
   npm install

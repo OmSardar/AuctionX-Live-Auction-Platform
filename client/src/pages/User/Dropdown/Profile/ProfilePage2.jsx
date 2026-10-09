@@ -206,7 +206,7 @@ function ProfilePage2() {
     // Fetch user data based on email
     if (email) {
       axios
-        .get(`https://auction-x.onrender.com/api/auth/user/${email}`)
+        .get(`${process.env.REACT_APP_API_URL}/api/auth/user/${email}`)
         .then((response) => {
           setProfileInfo(response.data); // Set profile information with response data
         })
@@ -247,7 +247,7 @@ function ProfilePage2() {
     // Send a PATCH request to update the user data
     axios
       .patch(
-        `https://auction-x.onrender.com/api/auth/updateUserProfile/${profileInfo.email}`,
+        `${process.env.REACT_APP_API_URL}/api/auth/updateUserProfile/${profileInfo.email}`,
         updatedProfileData
       )
       .then((response) => {

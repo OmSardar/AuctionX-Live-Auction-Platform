@@ -15,7 +15,7 @@ const ProductDetail = () => {
     const fetchProductDetail = async () => {
       try {
         const response = await axios.get(
-          `https://auction-x.onrender.com/api/products/${id}`
+          `${process.env.REACT_APP_API_URL}/api/products/${id}`
         );
         setProduct(response.data);
       } catch (err) {

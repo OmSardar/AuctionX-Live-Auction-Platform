@@ -12,7 +12,7 @@ const DownloadInvoice = ({ id }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://auction-x.onrender.com/api/orders/${id}`
+          `${process.env.REACT_APP_API_URL}/api/orders/${id}`
         );
         setOrderData(response.data);
       } catch (error) {

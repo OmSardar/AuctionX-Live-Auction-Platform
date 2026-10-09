@@ -47,7 +47,7 @@ const LoginPage = () => {
       // Check if user is signing up or signing in
       if (isSignUp) {
         const { name, email, password } = formData;
-        response = await post("https://auction-x.onrender.com/api/auth/register", {
+        response = await post(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
           name,
           email,
           password,
@@ -67,7 +67,7 @@ const LoginPage = () => {
         }
       } else {
         const { email, password } = formData;
-        response = await post("https://auction-x.onrender.com/api/auth/login", {
+        response = await post(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
           email,
           password,
         });
@@ -115,7 +115,7 @@ const LoginPage = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "https://auction-x.onrender.com/auth/google"; // Redirect to Google OAuth
+    window.location.href = `${process.env.REACT_APP_API_URL}/auth/google`; // Redirect to Google OAuth
   };
 
   useEffect(() => {

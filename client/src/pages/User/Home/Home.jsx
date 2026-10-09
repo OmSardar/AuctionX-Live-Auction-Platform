@@ -108,7 +108,7 @@ const Home = () => {
         />
         <link
           rel="canonical"
-          href="https://auction-x-minor-project-2024.onrender.com/"
+          href={`${process.env.REACT_APP_CLIENT_URL}/`}
         />
 
         {/* Open Graph (for social sharing) */}
@@ -122,7 +122,7 @@ const Home = () => {
         />
         <meta
           property="og:url"
-          content="https://auction-x-minor-project-2024.onrender.com/"
+          content={`${process.env.REACT_APP_CLIENT_URL}/`}
         />
         <meta property="og:type" content="website" />
       </Helmet>

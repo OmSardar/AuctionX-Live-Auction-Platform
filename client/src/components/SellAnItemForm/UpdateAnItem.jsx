@@ -34,7 +34,7 @@ const UpdateSeller = () => {
   const fetchProduct = async () => {
     try {
       const response = await axios.get(
-        `https://auction-x.onrender.com/api/products/${productId}`
+        `${process.env.REACT_APP_API_URL}/api/products/${productId}`
       );
       const product = response.data;
 
@@ -181,7 +181,7 @@ const UpdateSeller = () => {
       };
 
       const response = await axios.put(
-        `https://auction-x.onrender.com/api/products/${productId}`,
+        `${process.env.REACT_APP_API_URL}/api/products/${productId}`,
         payload
       );
       toast.success("Updated successfully");

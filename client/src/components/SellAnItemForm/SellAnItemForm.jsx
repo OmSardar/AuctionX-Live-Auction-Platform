@@ -159,7 +159,7 @@ const SellAnItem = () => {
       };
 
       const response = await axios.post(
-        "https://auction-x.onrender.com/api/products",
+        `${process.env.REACT_APP_API_URL}/api/products`,
         payload
       );
       toast.success("Product submitted successfully");

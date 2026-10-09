@@ -5,7 +5,7 @@ import axios from "axios";
 // Function to fetch orders from the API
 const getOrder = async () => {
   try {
-    const response = await axios.get("https://auction-x.onrender.com/api/orders/"); // Replace with your API endpoint
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders/`); // Replace with your API endpoint
     return response.data; // Assuming the response data contains the orders array
   } catch (error) {
     console.error("Error fetching orders", error);
