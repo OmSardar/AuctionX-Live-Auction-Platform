@@ -1,6 +1,8 @@
-# AuctionX — Project Guide and Source Review
+# AuctionX — Live Auction Platform Guide
 
 _Transforming Auctions Into Limitless Opportunities_
+
+AuctionX was created as my first software project during the final year of my BCA program, as a minor project.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000)
@@ -26,6 +28,21 @@ _Transforming Auctions Into Limitless Opportunities_
 ![JWT Decode](https://img.shields.io/badge/Auth-JWT%20Decode-FCD34D?logo=jwt&logoColor=white)
 ![Redux Persist](https://img.shields.io/badge/Persistence-Redux%20Persist-22C55E?logo=redux&logoColor=white)
 
+<details>
+<summary>Complete frontend dependency list</summary>
+
+These packages are declared in the client manifest. A package being listed does not necessarily mean it is actively imported by the current application.
+
+- **Core and routing:** React, React DOM, React Scripts, React Router DOM, React Helmet Async.
+- **State and requests:** Redux Toolkit, React Redux, Redux Persist, Axios.
+- **UI and styling:** Ant Design, Ant Design Icons, Bootstrap, Bootstrap Icons, React Bootstrap, MDB React UI Kit, Styled Components, PropTypes.
+- **Icons:** Font Awesome Free, Font Awesome SVG Core, Font Awesome Free Brands, Font Awesome Free Solid, React Font Awesome, React Icons.
+- **Charts, alerts, and helpers:** Chart.js, React Chart.js 2, SweetAlert2, React Hot Toast, React Loading, React Phone Number Input, jsPDF, JWT Decode, js-cookie.
+- **Realtime and configuration:** Socket.IO Client, dotenv, Web Vitals.
+- **Testing:** Testing Library Jest DOM, Testing Library React, Testing Library User Event.
+- **Manifest typo:** boostrap is declared alongside Bootstrap and appears to be a misspelled duplicate.
+</details>
+
 ## Backend Technologies
 
 ![MongoDB](https://img.shields.io/badge/DB-MongoDB-47A248?logo=mongodb&logoColor=white)
@@ -41,32 +58,66 @@ _Transforming Auctions Into Limitless Opportunities_
 ![Bcrypt](https://img.shields.io/badge/Encryption-Bcrypt-1E40AF?logo=javascript&logoColor=white)
 ![Nodemailer](https://img.shields.io/badge/Email-Nodemailer-FF69B4?logo=nodemailer&logoColor=white)
 
+<details>
+<summary>Complete backend dependency list</summary>
+
+- **Server and database:** Express, Mongoose, MongoDB.
+- **Authentication:** JSON Web Token, Passport, Passport Google OAuth 2.0, Google Auth Library, bcrypt, bcryptjs.
+- **Integrations and middleware:** Cloudinary, cookie-parser, CORS, dotenv, Nodemailer, Socket.IO.
+- **Development utility:** Nodemon.
+
+These packages are declared in the server manifest. Node.js is the runtime, and MongoDB is the database service used by Mongoose.
+</details>
+
 ---
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Getting Started](#getting-started)
+- [What this repository contains](#what-this-repository-contains)
+- [Feature inventory](#feature-inventory)
+- [Important security and correctness findings](#important-security-and-correctness-findings)
+- [Technology and dependency notes](#technology-and-dependency-notes)
+- [Repository structure](#repository-structure)
 - [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Testing](#testing)
+- [Local setup](#local-setup)
+- [API surface map](#api-surface-map)
+- [Data and behavior notes](#data-and-behavior-notes)
+- [Deployment notes](#deployment-notes)
+- [Project state and review limits](#project-state-and-review-limits)
+- [Architecture diagrams](#architecture-diagrams)
+- [Frontend route inventory](#frontend-route-inventory)
+- [Backend route reference](#backend-route-reference)
+- [Data model orientation](#data-model-orientation)
+- [Feature behavior: implementation detail](#feature-behavior-implementation-detail)
+- [Environment variable reference](#environment-variable-reference)
+- [Repository file map: server](#repository-file-map-server)
+- [Repository file map: client](#repository-file-map-client)
+- [Dependency and maintenance review detail](#dependency-and-maintenance-review-detail)
+- [Configuration troubleshooting guide](#configuration-troubleshooting-guide)
+- [My manual review checklist](#my-manual-review-checklist)
+- [What this guide covers](#what-this-guide-covers)
+- [How I recommend reviewing the project](#how-i-recommend-reviewing-the-project)
+- [Guide updates](#guide-updates)
+- [About this README](#about-this-readme)
 
 ---
 
 _A source-based guide to the AuctionX localhost auction application._
-
-> **Read this first — important security and reliability warnings**
+> **Read this first — notes from me, the project creator**
 >
-> This repository looks like a student/demo project and is **not safe to expose to the public internet or use for real money or personal data without substantial security work**. The source review found critical-looking issues: the password-reset endpoint can change a user's password after checking only their email (the route does not require proof of the OTP); wallet balances and bids can be changed through unauthenticated API routes; product/order/admin data routes are largely unprotected; and the live Socket.IO bid event trusts values sent by the browser. The payment UI also has no matching server-side Razorpay verification endpoint in the registered backend routes, and its error path can credit a balance locally/server-side. Treat all money, bid, identity, and admin data as untrusted until these paths are secured.
+> AuctionX was one of my earlier projects. I’m aware of the security and reliability issues in this version, and I want to make them clear to anyone reviewing or running it. I’m not planning to fix them here because I’ve built an improved version separately. This version is not safe to expose to the public internet or use with real money or personal data.
 >
-> **Local run caveat:** the backend defaults to port `3000`, which is also Create React App's usual frontend port. Set the backend `PORT=5000` (or another free port) and configure the frontend API URL accordingly. The README's older setup text mentions Python/FastAPI and Redis, but neither service is present in this repository's source or manifests.
+> I’ve since built an improved and enhanced version of AuctionX. You can explore it at [the live AuctionX site](https://the-auction-x.onrender.com/) or view its source on [GitHub](https://github.com/OmSardar/AuctionX-Enhanced-Live-AI-Auction-Platform).
+>
+> In this version, the password-reset endpoint can change a user's password after checking only their email; it does not require proof that the OTP was verified. Wallet balances and bids can be changed through API routes without authentication. Several product, order, and admin routes also lack server-side access checks, and the live Socket.IO bid event trusts values sent by the browser. The payment UI has no corresponding server-side Razorpay verification endpoint, and its error path can still attempt to credit a wallet. For these reasons, treat account, wallet, bid, and admin data as untrusted.
+>
+> **Local setup note:** The backend defaults to port `3000`, which is also Create React App's usual frontend port. Set the backend `PORT` to `5000` (or another available port) and configure the frontend API URL to match.
 
 ## What this repository contains
 
 AuctionX is a JavaScript MERN-style web application with a React single-page client and an Express/Mongoose server. It includes auction listings and a bidding interface, account flows, seller and admin screens, feedback/contact pages, and a wallet/payment interface. MongoDB is the main persistent store. Socket.IO is used for live bid display; Cloudinary and SMTP credentials are expected for image and email features; Google OAuth credentials are expected for Google sign-in.
 
-This guide describes what the checked-in source appears to implement. It is not a claim that every flow is working or secure. No Python recommendation service, Redis service, or separate AI service appears in the repository inventory or package manifests.
+This guide describes what the checked-in source appears to implement. It is not a claim that every flow is working or secure. The frontend, backend, and integrations described here reflect the components present in this checkout.
 
 ## Feature inventory
 
@@ -142,7 +193,6 @@ Do not use production credentials or real user data with the current code. A sec
 - Both `bcrypt` and `bcryptjs` are installed; the auth controller uses `bcryptjs`, while middleware imports `bcrypt`. Confirm whether both are actually needed.
 - The lockfiles contain npm deprecation notices in transitive packages, including old glob/rimraf generations and other unsupported utilities. These notices do **not** prove that every direct dependency is deprecated; inspect the current lockfile and dependency tree before upgrading.
 - Create React App (`react-scripts` 5) is the build tooling currently declared. Treat it as legacy maintenance tooling and plan a supported build-tool migration separately; do not infer that the application itself is deprecated.
-- The original README lists Python 3.8+, FastAPI, and Redis. These are not declared in either package manifest and no corresponding service code was found in the project file inventory, so those prerequisites appear stale or refer to work outside this checkout.
 - The root MIT license and `server/package.json` license field (`ISC`) disagree. Clarify the intended licensing before redistribution.
 
 ## Repository structure
@@ -183,8 +233,6 @@ The frontend is organized by pages/components/layouts and the backend by routes/
 - Cloudinary credentials for server-side image operations.
 - SMTP credentials for email/OTP/contact mail utilities.
 - Razorpay key for the client payment widget; this key is public by design when prefixed `REACT_APP_`. Never put Razorpay secrets in the React environment. The current server does not implement payment verification.
-
-Python and Redis are not required by the code present in this checkout.
 
 ## Local setup
 
@@ -957,148 +1005,148 @@ This document did not run `npm audit`, so it does not claim a definitive list of
 - Set a distinct backend port in `server/.env`.
 - Update the frontend API URL and server's CORS origin.
 - Check for an existing server process before changing a port arbitrarily.
+## My manual review checklist
 
-## Local manual review checklist
+I built AuctionX as an early project, and I know some of the checks below are not satisfied by this version. I’m including them as a review guide for anyone running or studying the project. An unchecked box means I have not confirmed that the check passes.
 
-This is a manual verification outline for maintainers. It is not evidence that these checks have been run for this README update.
+### Starting the project
 
-### Startup checks
+- [ ] Install the client and server dependencies from their respective folders.
+- [ ] Run the backend on a different port from the React development server.
+- [ ] Confirm MongoDB connects using the configured URI.
+- [ ] Open the client and confirm it can reach the backend health endpoint.
+- [ ] Confirm CORS allows the local client origin.
+- [ ] Confirm the client can connect to Socket.IO.
+- [ ] Check that the browser console does not expose configuration secrets.
+- [ ] Check that server logs do not contain passwords, OTPs, or JWTs.
 
-- [ ] Client and server dependencies install from their own package directories.
-- [ ] Server starts on a port separate from the CRA client port.
-- [ ] MongoDB connection succeeds with the configured URI.
-- [ ] Client opens and can reach the API root health endpoint.
-- [ ] CORS allows the intended local client origin.
-- [ ] Socket.IO connection succeeds from the client.
-- [ ] The browser console contains no configuration secrets.
-- [ ] The server log contains no raw password, OTP, or JWT values.
+### Browsing the site
 
-### Visitor browsing checks
+- [ ] Open the home page without signing in.
+- [ ] Confirm categories and product listings load.
+- [ ] Try searching for a listing.
+- [ ] Open a product detail page.
+- [ ] Check that product images load and have useful alternative text.
+- [ ] Check how the today and tomorrow auction pages look when there are no listings.
+- [ ] Check how the countdown behaves when schedule data is missing or invalid.
+- [ ] Visit an unknown URL and confirm the not-found page appears.
 
-- [ ] Home page loads without authentication.
-- [ ] Category list loads product data.
-- [ ] Search returns relevant listing results.
-- [ ] Product detail loads by product ID.
-- [ ] Product images have valid URLs and meaningful alternative text.
-- [ ] Today/tomorrow screens handle empty result sets.
-- [ ] Countdown UI handles missing or invalid schedule values.
-- [ ] Unknown client paths show the not-found screen.
+### Accounts and profiles
 
-### Account checks
+- [ ] Try registering without required information.
+- [ ] Check the message shown when an email is already registered.
+- [ ] Confirm passwords are stored as hashes, never as plain text.
+- [ ] Try logging in with an incorrect password.
+- [ ] Confirm logout clears the user's active session as expected.
+- [ ] Try Google sign-in and confirm it returns to the correct site.
+- [ ] Check how Google sign-in handles an email that already has an account.
+- [ ] Confirm users can edit only their own profiles.
+- [ ] Confirm users cannot change their role by editing browser data.
+- [ ] Check that OTP requests are rate limited and do not reveal sensitive account information.
+- [ ] Confirm OTPs expire and cannot be reused.
+- [ ] Confirm password reset requires verified OTP proof, not just a user's email address.
 
-- [ ] Registration rejects missing required data.
-- [ ] Duplicate email behavior is understandable to the user.
-- [ ] Passwords are never stored as plain text.
-- [ ] Login rejects incorrect credentials.
-- [ ] Logout clears the active auth state/cookie as intended.
-- [ ] Google OAuth returns to the expected origin.
-- [ ] Google OAuth account linking handles an existing email safely.
-- [ ] Profile edits affect only the authenticated user's own account.
-- [ ] Role changes cannot be made by modifying client data.
-- [ ] OTP requests are rate limited and errors do not reveal sensitive account state.
-- [ ] OTPs expire and can only be consumed once.
-- [ ] Password reset cannot be completed using only a known email address.
+### Listings
 
-### Listing checks
+- [ ] Create a listing with valid information.
+- [ ] Confirm the server rejects invalid prices, schedules, and overly long text.
+- [ ] Check that listing images are validated and saved with the correct product.
+- [ ] Confirm a user cannot create a listing under someone else's identity.
+- [ ] Confirm sellers can update only their own listings.
+- [ ] Confirm sellers can delete only their own listings.
+- [ ] Confirm the server enforces the listing time restrictions.
+- [ ] Confirm status changes are authorized and validated by the server.
+- [ ] Confirm a user cannot delete another user's Cloudinary image.
+- [ ] Check that product APIs return only the data they should expose.
 
-- [ ] Seller can create a listing with valid fields.
-- [ ] Invalid prices, schedules, and oversized text are rejected server-side.
-- [ ] Listing images are validated and associated with the correct product.
-- [ ] Seller cannot create a listing attributed to another account.
-- [ ] Seller can update only their own listing.
-- [ ] Seller can delete only their own listing.
-- [ ] Timing restrictions are enforced by the server.
-- [ ] Status changes are authorized and validated on the server.
-- [ ] Image deletion cannot target another user's Cloudinary asset.
-- [ ] Product read APIs return only intended fields.
+### Auctions and bids
 
-### Auction and bid checks
+- [ ] Confirm the server checks auction start and end times.
+- [ ] Confirm the server checks the minimum bid increment.
+- [ ] Confirm bidder identity comes from authentication, not browser storage.
+- [ ] Confirm a user cannot bid more than their available balance.
+- [ ] Confirm balance changes and bid placement happen together and cannot be repeated accidentally.
+- [ ] Confirm the previous bidder's refund is correct and cannot be replayed.
+- [ ] Try placing two bids at nearly the same time and check the result.
+- [ ] Confirm clients cannot send fake bidder names or bid amounts through Socket.IO.
+- [ ] Refresh or reconnect during an auction and confirm the displayed state matches the saved state.
+- [ ] If running more than one backend instance, confirm they share auction state.
+- [ ] Confirm an auction can close and select a winner only once.
+- [ ] Confirm retries cannot create duplicate orders or close a listing twice.
 
-- [ ] Bid start and end boundaries are checked on the server.
-- [ ] Bid increments are checked on the server.
-- [ ] Bidder identity is derived from authentication, not browser storage.
-- [ ] A user cannot outbid with an insufficient balance.
-- [ ] Balance deduction and bid persistence are atomic/idempotent.
-- [ ] Prior bidder refund is correct and cannot be replayed.
-- [ ] Two simultaneous bids have deterministic ordering.
-- [ ] Socket events cannot broadcast fabricated bidder identities or amounts.
-- [ ] Refreshing or reconnecting shows authoritative persisted auction state.
-- [ ] Multiple backend instances share live auction state or use a durable event adapter.
-- [ ] Auction close/winner selection happens once.
-- [ ] Order creation and product close cannot be duplicated by retries.
+### Payments and wallet
 
-### Payment and wallet checks
+- [ ] Confirm an unauthenticated request cannot change a wallet balance.
+- [ ] Confirm a user cannot change someone else's balance by changing an email value.
+- [ ] Confirm the server creates payment orders for the authenticated user.
+- [ ] Confirm the server verifies payment signatures and trusted provider notifications.
+- [ ] Confirm invalid, repeated, or duplicate payment callbacks never add funds.
+- [ ] Confirm a network error cannot add funds without payment verification.
+- [ ] Confirm the credited amount matches the server-created payment order.
+- [ ] Keep a wallet ledger that can be reviewed and reconciled.
+- [ ] Keep payment secrets out of the browser.
+- [ ] Document how refunds and chargebacks are handled.
 
-- [ ] No wallet balance can be changed by an unauthenticated request.
-- [ ] A user cannot change another user's wallet by changing an email parameter.
-- [ ] Server creates payment orders with a fixed authenticated customer.
-- [ ] Server verifies payment signatures and trusted provider webhooks.
-- [ ] Invalid, replayed, or duplicate payment callbacks never credit funds.
-- [ ] A network failure never credits funds without provider verification.
-- [ ] The amount credited matches the server-created order amount.
-- [ ] Wallet ledger entries are immutable and reconcilable.
-- [ ] Payment secrets are never sent to the browser.
-- [ ] Refund and chargeback behavior is documented and handled.
+### Admin and orders
 
-### Admin and order checks
+- [ ] Confirm every admin API verifies an authenticated admin account on the server.
+- [ ] Confirm regular users cannot directly request customer or user lists.
+- [ ] Confirm regular users cannot directly delete users or listings.
+- [ ] Confirm users can read only their own orders.
+- [ ] Confirm order details use the saved auction winner and final price.
+- [ ] Confirm feedback is visible only to authorized staff.
+- [ ] Confirm the revenue calculation follows a documented rule.
+- [ ] Confirm admin deletion actions clearly identify the record being deleted.
 
-- [ ] Every admin API checks an authenticated admin principal server-side.
-- [ ] Non-admin users cannot query user/customer lists directly.
-- [ ] Non-admin users cannot delete users or listings directly.
-- [ ] Users can read only their own order data.
-- [ ] Order snapshots derive winner/price from authoritative records.
-- [ ] Feedback details are visible only to authorized staff.
-- [ ] Revenue calculations match a documented business rule.
-- [ ] Admin deletion actions are auditable and confirm the intended target.
+### Before deployment
 
-### Deployment checks
+- [ ] Use HTTPS for the production site and API.
+- [ ] Set cookie options to suit the production setup.
+- [ ] Allow only the intended frontend origins through CORS.
+- [ ] Store secrets in the hosting provider's configuration, not in committed files.
+- [ ] Configure the frontend host to serve the app when a nested route is refreshed.
+- [ ] Confirm OAuth callback URLs match the provider settings.
+- [ ] Use least-privilege MongoDB credentials and keep backups.
+- [ ] Keep passwords, tokens, OTPs, and payment data out of logs.
+- [ ] Add rate limits to login, OTP, contact, and data-changing routes.
+- [ ] Make sure error messages do not expose stack traces or database details.
+- [ ] Configure security headers and request size limits.
+- [ ] Check dependency advisories with current tooling.
+- [ ] Review the production build and static files before release.
 
-- [ ] Production uses HTTPS throughout.
-- [ ] Cookie flags are suitable for the deployment topology.
-- [ ] CORS allowlist contains only intended client origins.
-- [ ] Secrets are set in hosting configuration, not committed files.
-- [ ] The SPA host has a fallback for nested routes.
-- [ ] OAuth callback URLs match provider configuration.
-- [ ] MongoDB uses least-privilege credentials and backups.
-- [ ] Logging excludes passwords, tokens, OTPs, and payment data.
-- [ ] Rate limits protect login, OTP, contact, and mutation endpoints.
-- [ ] Error responses do not disclose stack traces or internal database details.
-- [ ] Security headers and request body limits are configured.
-- [ ] Dependency advisories are checked with current tooling.
-- [ ] Build output and static assets are reviewed before release.
+## What this guide covers
 
-## Known gaps and non-goals of this guide
+This README is a companion to the original project README. It describes the code and configuration included in this version of AuctionX.
 
-- This file does not replace the original `README.md`; it is an expanded companion.
-- It does not claim every UI component has been exhaustively exercised in a browser.
-- It does not claim that all source files are bug-free or that every route has been analyzed for every attack class.
-- It does not include actual production secrets, personal records, or copied `.env` values.
-- It does not claim Python, FastAPI, Redis, or AI recommendations are implemented in this checkout.
-- It does not assert that an API route is exploitable in every deployment; it records missing protection in the inspected route declaration/handler path.
-- It does not identify current CVEs because no dependency audit was run as part of writing this documentation.
-- It does not change authentication, authorization, payment, bidding, dependency, or deployment code.
-- It does not treat the README feature list as proof that each feature is secure or complete.
+- It does not mean I have tested every screen or workflow in a browser.
+- It does not mean every bug or security issue in the project has been found.
+- It does not include production secrets, personal records, or copied `.env` values.
+- This guide focuses on the technologies and services present in this version's source code and package manifests.
+- When I point out missing server-side route protection, I am describing what I found in the checked-in routes and handlers. The actual impact may depend on how the application is deployed.
+- I have not run a dependency audit for this guide, so it does not provide a current list of vulnerability advisories.
+- This guide documents the project; it does not change its authentication, authorization, payment, bidding, dependency, or deployment code.
+- A feature being described in a README does not mean I consider it secure or complete.
 
-## Suggested reading order for maintainers
+## How I recommend reviewing the project
 
-1. Read the warning block at the top of this file.
-2. Read `client/src/App.js` to understand the visible route tree.
-3. Read `server/server.js` for middleware, route mounts, OAuth, and socket startup.
-4. Read `server/routes/LoginRoutes/AuthRoutes.js` and the other route files to understand API exposure.
-5. Read the matching controller for each route before trusting its behavior.
-6. Compare the JWT claims created by every login flow with `verifyToken.js` expectations.
-7. Trace one user workflow from the React page through API call, route, controller, model, and response.
-8. Review every route handling identity, money, permissions, personal data, or destructive actions.
-9. Treat package-lock deprecation notices separately from security audit results.
-10. Update this companion README whenever the implemented routes, environment variables, or runtime architecture changes.
+1. Start with the warning near the top of this README.
+2. Read `client/src/App.js` to see how I organized the frontend routes.
+3. Read `server/server.js` to see how I set up middleware, API routes, Google OAuth, and Socket.IO.
+4. Read the files in `server/routes/` to see which API endpoints are available.
+5. Follow each route into its controller to understand what it does.
+6. Compare the JWT values created by each login flow with the values expected in `verifyToken.js`.
+7. Trace a workflow from its React page through the API route and controller to the database model.
+8. Pay special attention to routes that handle accounts, money, permissions, personal information, or deletion.
+9. Treat package deprecation notices separately from security vulnerability reports.
+10. If the code changes, update this guide to match the routes, environment variables, and architecture in the new version.
 
-## Change log for this companion document
+## Guide updates
 
-| Revision               | Description                                                                                                                                                                |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Initial detailed guide | Added project overview, setup, repository map, API overview, dependency notes, and static security observations based on the current checkout.                             |
-| Expanded source guide  | Added architecture and sequence diagrams, route tables, data model orientation, feature behavior, environment reference, file map, troubleshooting, and review checklists. |
+| Revision | What I added |
+| --- | --- |
+| Initial guide | Project overview, setup instructions, repository map, API overview, dependency notes, and security warnings. |
+| Expanded guide | Architecture diagrams, route tables, data model notes, feature walkthroughs, environment variable reference, file map, troubleshooting, and review checklist. |
 
-## Attribution and relationship to the original README
+## About this README
 
-The existing root `README.md` remains the original project document and has not been replaced by this companion guide. This file expands and corrects context where static inspection of the checked-in source differs from older README claims. In particular, setup prerequisites and feature descriptions above are tied to the files and manifests currently present in this repository. Re-check the source when the project changes, and keep both documents consistent where the original README is later intentionally updated.
+The original root `README.md` is still the project's original README. I wrote this companion guide to explain the version of AuctionX included in this repository and to clarify where the older README describes things that are not present in this checkout. The two READMEs should be kept consistent when I update the project.
